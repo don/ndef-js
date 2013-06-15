@@ -10,9 +10,9 @@ Library to create and parse NDEF messages.
     
 See the [examples](examples) directory for more information on creating and decoding messages.
 
-The decode.js example uses [mifare dump files](http://nfc-tools.org/index.php?title=Libnfc:nfc-mfclassic) created with lib-nfc
+The decode.js example uses [mifare dump files](http://nfc-tools.org/index.php?title=Libnfc:nfc-mfclassic) created with lib-nfc.
 
-On a mac, use [homebrew](http://mxcl.github.io/homebrew/) to install libnfc
+On a mac, use [homebrew](http://mxcl.github.io/homebrew/) to install libnfc.
 
     $ brew install libnfc
     

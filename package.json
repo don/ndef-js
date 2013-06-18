@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "description": "Library to create and parse NDEF messages.",
   "main": "index.js",
-  "test": "mocha test/test.js",
   "directories": {
     "test": "test"
   },
+  "scripts": {
+      "test": "mocha test/test.js"
+  },  
   "repository": {
     "type": "git",
     "url": "git://github.com/don/ndef-js"

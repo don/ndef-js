@@ -17,7 +17,7 @@ var multipleRecordMessage = [ 145, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 1
 var emptyMessage = [ 208, 0, 0 ];
 var threeEmptyMessage =[ 144, 0, 0, 16, 0, 0, 80, 0, 0 ];
 
-describe('Message', function() {
+describe('Encode Message', function() {
     describe('textRecord', function() {
 
         it('should match known message', function() {
@@ -96,5 +96,25 @@ describe('Message', function() {
     })
     
 })
+
+describe('Decode Message', function() {
+    describe('textRecord', function() {
+
+        it('should match known record', function() {
+            
+            // TODO decodeMessage should clone not here
+            var decodedMessage = ndef.decodeMessage(textMessageHelloWorld.slice(0));            
+            assert.equal(1, decodedMessage.length);
+            
+            var record = ndef.textRecord("hello, world");
+            var decodedRecord = decodedMessage[0];
+            
+            assert.equal(record.tnf, decodedRecord.tnf);            
+            assert.deepEqual(record.type, decodedRecord.type);
+            assert.deepEqual(record.payload, decodedRecord.payload);
+        })
+    })
+})
+
 
 

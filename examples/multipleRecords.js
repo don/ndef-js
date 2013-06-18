@@ -2,7 +2,7 @@
 
 // create a NDEF message with multiple records
 
-var ndef = require('./lib/ndef'),
+var ndef = require('../lib/ndef'),
     message,
     byteArray,
     buffer;

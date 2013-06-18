@@ -1,6 +1,6 @@
 // create a NDEF message containing a URI
 
-var ndef = require('./lib/ndef'),
+var ndef = require('../lib/ndef'),
     message,
     byteArray,
     buffer;

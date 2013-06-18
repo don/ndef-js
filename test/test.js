@@ -125,6 +125,25 @@ describe('decodeMessage', function() {
         decodedMessage = ndef.decodeMessage(textMessageHelloWorld);            
         assert.equal(1, decodedMessage.length);
     })
+    
+    it('should decode multiple records', function() {
+        
+        var decodedMessage = ndef.decodeMessage(multipleRecordMessage);            
+        assert.equal(3, decodedMessage.length);
+        
+        assert.equal(ndef.TNF_WELL_KNOWN, decodedMessage[0].tnf);
+        assert.deepEqual(ndef.RTD_TEXT, decodedMessage[0].type);
+        assert.equal("hello, world", new Buffer(decodedMessage[0].payload).slice(3));
+        
+        assert.equal(ndef.TNF_WELL_KNOWN, decodedMessage[1].tnf);
+        assert.deepEqual(ndef.RTD_URI, decodedMessage[1].type);
+        assert.equal("http://nodejs.org", new Buffer(decodedMessage[1].payload).slice(1));
+                
+        assert.equal(ndef.TNF_MIME_MEDIA, decodedMessage[2].tnf);
+        assert.equal("text/json", new Buffer(decodedMessage[2].type));
+        assert.equal('{"message": "hello, world"}', new Buffer(decodedMessage[2].payload));             
+    })
+    
 })
 
 

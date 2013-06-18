@@ -102,8 +102,7 @@ describe('Decode Message', function() {
 
         it('should match known record', function() {
             
-            // TODO decodeMessage should clone not here
-            var decodedMessage = ndef.decodeMessage(textMessageHelloWorld.slice(0));            
+            var decodedMessage = ndef.decodeMessage(textMessageHelloWorld);            
             assert.equal(1, decodedMessage.length);
             
             var record = ndef.textRecord("hello, world");
@@ -115,6 +114,19 @@ describe('Decode Message', function() {
         })
     })
 })
+
+describe('decodeMessage', function() {
+
+    it('should not be destructive', function() {
+        
+        var decodedMessage = ndef.decodeMessage(textMessageHelloWorld);            
+        assert.equal(1, decodedMessage.length);
+        
+        decodedMessage = ndef.decodeMessage(textMessageHelloWorld);            
+        assert.equal(1, decodedMessage.length);
+    })
+})
+
 
 
 

@@ -2,18 +2,17 @@ var assert = require("assert");
 var ndef = require("../lib/ndef");
 
 var textMessageHelloWorld = [ 209, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 111,
-            44, 32, 119, 111, 114, 108, 100];
-var urlMessageNodeJSorg = [ 209, 1, 18, 85, 0, 104, 116, 116, 112, 58, 47, 47,
-            110, 111, 100, 101, 106, 115, 46, 111, 114, 103];
+            44, 32, 119, 111, 114, 108, 100 ];
+var urlMessageNodeJSorg = [ 209, 1, 11, 85, 3, 110, 111, 100, 101, 106, 115, 46,
+            111, 114, 103 ];
 var mimeMediaMessage = [ 210, 9, 27, 116, 101, 120, 116, 47, 106, 115, 111, 110,
             123, 34, 109, 101, 115, 115, 97, 103, 101, 34, 58, 32, 34, 104, 101, 108,
             108, 111, 44, 32, 119, 111, 114, 108, 100, 34, 125 ];
 var multipleRecordMessage = [ 145, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 111,
-            44, 32, 119, 111, 114, 108, 100, 17, 1, 18, 85, 0, 104, 116, 116, 112,
-            58, 47, 47, 110, 111, 100, 101, 106, 115, 46, 111, 114, 103, 82, 9, 27,
-            116, 101, 120, 116, 47, 106, 115, 111, 110, 123, 34, 109, 101, 115, 115, 97,
-            103, 101, 34, 58, 32, 34, 104, 101, 108, 108, 111, 44, 32, 119, 111, 114,
-            108, 100, 34, 125];
+            44, 32, 119, 111, 114, 108, 100, 17, 1, 11, 85, 3, 110, 111, 100, 101,
+            106, 115, 46, 111, 114, 103, 82, 9, 27, 116, 101, 120, 116, 47, 106, 115,
+            111, 110, 123, 34, 109, 101, 115, 115, 97, 103, 101, 34, 58, 32, 34, 104,
+            101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 34, 125 ];            
 var emptyMessage = [ 208, 0, 0 ];
 var threeEmptyMessage =[ 144, 0, 0, 16, 0, 0, 80, 0, 0 ];
 
@@ -137,7 +136,7 @@ describe('decodeMessage', function() {
         
         assert.equal(ndef.TNF_WELL_KNOWN, decodedMessage[1].tnf);
         assert.deepEqual(ndef.RTD_URI, decodedMessage[1].type);
-        assert.equal("http://nodejs.org", new Buffer(decodedMessage[1].payload).slice(1));
+        assert.equal("nodejs.org", new Buffer(decodedMessage[1].payload).slice(1)); // char 0 is 0x3 for http://
                 
         assert.equal(ndef.TNF_MIME_MEDIA, decodedMessage[2].tnf);
         assert.equal("text/json", new Buffer(decodedMessage[2].type));

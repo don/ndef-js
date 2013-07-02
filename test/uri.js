@@ -1,11 +1,13 @@
-var assert = require("assert");
-var ndef = require("../lib/ndef-uri"); // TODO
+var assert = require("assert"),
+    ndef = {};
+    
+ndef.uri = require("../lib/ndef-uri");
 
 describe('NDEF URI Encoder', function() {
 
     it('should encode URIs', function() {
         
-        var encoded = ndef.encodeURI("http://arduino.cc");
+        var encoded = ndef.uri.encodePayload("http://arduino.cc");
         assert.equal(3, encoded[0]); // prefix
         assert.equal(11, encoded.length);
         
@@ -14,12 +16,12 @@ describe('NDEF URI Encoder', function() {
     it('should use first match', function() {
         
         // should substitute http://www. not http://        
-        var encoded = ndef.encodeURI("http://www.arduino.cc");
+        var encoded = ndef.uri.encodePayload("http://www.arduino.cc");
         assert.equal(1, encoded[0]); // prefix
         assert.equal(11, encoded.length);
 
         // should substitute https://www. not https://        
-        encoded = ndef.encodeURI("https://www.arduino.cc");
+        encoded = ndef.uri.encodePayload("https://www.arduino.cc");
         assert.equal(2, encoded[0]); // prefix
         assert.equal(11, encoded.length);
 
@@ -27,7 +29,7 @@ describe('NDEF URI Encoder', function() {
 
     it('should encode unknown prefixes', function() {
         
-        var encoded = ndef.encodeURI("foo://bar");
+        var encoded = ndef.uri.encodePayload("foo://bar");
         assert.equal(0, encoded[0]); // prefix
         assert.equal(10, encoded.length);
         
@@ -35,7 +37,7 @@ describe('NDEF URI Encoder', function() {
 
     it('should encode bogus data', function() {
         
-        var encoded = ndef.encodeURI("qwerty");
+        var encoded = ndef.uri.encodePayload("qwerty");
         assert.equal(0, encoded[0]); // prefix
         assert.equal(7, encoded.length);
         
@@ -43,7 +45,7 @@ describe('NDEF URI Encoder', function() {
 
     it('should encode strange protocols', function() {
         
-        var encoded = ndef.encodeURI("urn:epc:raw:somedata");        
+        var encoded = ndef.uri.encodePayload("urn:epc:raw:somedata");        
         assert.equal(33, encoded[0]); // prefix
         assert.equal(9, encoded.length);
         
@@ -62,23 +64,23 @@ describe('NDEF URI Decoder', function() {
     it('should decode URIs', function() {
 
         var bytes = getBytes(0, "http://arduino.cc");
-        var decoded = ndef.decodeURI(bytes);        
+        var decoded = ndef.uri.decodePayload(bytes);        
         assert.equal("http://arduino.cc", decoded);
 
         bytes = getBytes(1, "arduino.cc");
-        decoded = ndef.decodeURI(bytes);        
+        decoded = ndef.uri.decodePayload(bytes);        
         assert.equal("http://www.arduino.cc", decoded);
         
         bytes = getBytes(2, "arduino.cc");
-        decoded = ndef.decodeURI(bytes);        
+        decoded = ndef.uri.decodePayload(bytes);        
         assert.equal("https://www.arduino.cc", decoded);
         
         bytes = getBytes(3, "arduino.cc");                
-        decoded = ndef.decodeURI(bytes);                
+        decoded = ndef.uri.decodePayload(bytes);                
         assert.equal("http://arduino.cc", decoded);
         
         bytes = getBytes(4, "arduino.cc");
-        decoded = ndef.decodeURI(bytes);
+        decoded = ndef.uri.decodePayload(bytes);
         assert.equal("https://arduino.cc", decoded);        
         
     })
@@ -86,10 +88,10 @@ describe('NDEF URI Decoder', function() {
     // not sure if this is a good idea
     it('should decode strings', function() {
 
-        var decoded = ndef.decodeURI("0http://arduino.cc");        
+        var decoded = ndef.uri.decodePayload("0http://arduino.cc");        
         assert.equal("http://arduino.cc", decoded);
 
-        decoded = ndef.decodeURI("3arduino.cc");        
+        decoded = ndef.uri.decodePayload("3arduino.cc");        
         assert.equal("http://arduino.cc", decoded);
                 
     })
@@ -97,19 +99,19 @@ describe('NDEF URI Decoder', function() {
     it('should handle invalid prefixes', function() {
         
         var bytes = getBytes(36, "foo");                
-        var decoded = ndef.decodeURI(bytes);                
+        var decoded = ndef.uri.decodePayload(bytes);                
         assert.equal("foo", decoded);
 
         bytes = getBytes(0xFF, "foo");                
-        decoded = ndef.decodeURI(bytes);                
+        decoded = ndef.uri.decodePayload(bytes);                
         assert.equal("foo", decoded);  
 
         bytes = getBytes(-1, "foo");                
-        decoded = ndef.decodeURI(bytes);                
+        decoded = ndef.uri.decodePayload(bytes);                
         assert.equal("foo", decoded);  
 
         bytes = getBytes(-255, "foo");                
-        decoded = ndef.decodeURI(bytes);                
+        decoded = ndef.uri.decodePayload(bytes);                
         assert.equal("foo", decoded);  
       
     })

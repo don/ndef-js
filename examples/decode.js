@@ -13,33 +13,6 @@ if (!fileName) {
     process.exit(1);
 }
 
-// this belongs in ndef-utils or ndef
-function decodeUriPrefix(prefixCode) {
-    
-    switch(prefixCode) {
-        case 0x0:
-            prefix = "";
-            break;            
-        case 0x1:
-            prefix = "http://www.";
-            break;
-        case 0x2:
-            prefix = "https://www.";
-            break;            
-        case 0x3:
-            prefix = "http://";
-            break;
-        case 0x4:
-            prefix = "https://";
-            break;            
-        default:
-            // TODO implement all code (use a map)
-            prefix = "?????";
-    } 
-    
-    return prefix;           
-}
-
 buffer = fs.readFileSync(fileName);
 ndefBuffer = mifareClassic.getNdefData(buffer);
 console.log(ndefBuffer);
@@ -55,19 +28,11 @@ message.forEach(function(record) {
     // TODO record.isType(ndef.TNF_WELL_KNOWN, ndef.RTD_TEXT)      
     if (record.tnf === ndef.TNF_WELL_KNOWN && record.type[0] === ndef.RTD_TEXT[0]) {
         
-        payload = new Buffer(record.payload);
-
-        languageCodeLength = (payload[0] & 0x1F); // 5 bits
-        utf16 = (payload[0] & 0x80) !== 0; // assuming UTF-16BE
-            
-        console.log("lang " + payload.slice(1, 1 + languageCodeLength) + (utf16 ? " utf16" : " utf8"));        
-        console.log(payload.slice(languageCodeLength + 1).toString('utf8'));
+        console.log(ndef.text.decodePayload(record.payload));
         
     } else if (record.tnf === ndef.TNF_WELL_KNOWN && record.type[0] === ndef.RTD_URI[0]) {
 
-        payload = new Buffer(record.payload);
-        prefix = decodeUriPrefix(payload[0]);
-        console.log(prefix + payload.slice(1));
+        console.log(ndef.uri.decodePayload(record.payload));
         
     } else {
         console.log("No lo entiendo.");

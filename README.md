@@ -12,9 +12,9 @@ Library to create and parse NDEF messages.
       
     records = ndef.decodeMessage(bytes);
 
-    ndef.text.decodePayload(records[0].payload)
+    ndef.text.decodePayload(records[0].payload);
 
-    # prints 'hello, world'
+    // prints 'hello, world'
             
 See the [examples](examples) directory for more information on creating and decoding messages.
 

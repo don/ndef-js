@@ -1,4 +1,4 @@
-### See the [ndef-mifare-classic-js](http://github.com/don/ndef-mifare-classic-js) for better examples.
+### NOTE: See [ndef-mifare-classic-js](https://github.com/don/ndef-mifare-classic-js/tree/master/examples) for better examples.
 
 ## Creating Messages
 There are 3 examples that show how to create `NdefMessages`: [text.js](text.js), [uri.js](uri.js) and [multipleRecords.js](multipleRecords.js).

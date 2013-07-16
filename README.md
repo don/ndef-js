@@ -16,6 +16,6 @@ Library to create and parse NDEF messages.
 
     // prints 'hello, world'
             
-See the [examples](examples) directory for more information on creating and decoding messages.
+See the [examples](https://github.com/don/ndef-js/blob/master/examples) directory and the [mifare classic examples](https://github.com/don/ndef-mifare-classic-js/blob/master/examples) for more information on creating and decoding messages.
 
 See the [phonegap-nfc documentation](https://github.com/chariotsolutions/phonegap-nfc#ndef) for additional info.

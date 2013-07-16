@@ -145,6 +145,82 @@ describe('decodeMessage', function() {
     
 })
 
+describe('stringify', function() {
+    
+    it ('should stringify messages', function() {
+        var message = [
+            ndef.textRecord("hello, world")
+        ];
 
+        var string = ndef.stringify(message);
 
+        assert.equal("Text Record\nhello, world\n", string);
 
+        message = [
+            ndef.uriRecord("http://www.example.com"),
+            ndef.textRecord("hello, world")
+        ];
+
+        string = ndef.stringify(message);
+
+        assert.equal("URI Record\nhttp://www.example.com\n\nText Record\nhello, world\n", string);
+    })
+
+    it ('should stringify smartposters', function() {
+        var message = [
+            ndef.smartPoster(
+                [
+                    ndef.uriRecord("http://www.example.com"),
+                    ndef.textRecord("hello, world")
+                ]
+            )
+        ];
+
+        var string = ndef.stringify(message);
+
+        // ideally the inner message would be indented
+        assert.equal("Smart Poster\nURI Record\nhttp://www.example.com\n\nText Record\nhello, world\n\n", string);
+    })
+
+    it ('should stringify records', function() {
+        var record = ndef.textRecord("hello, world");
+        var string = ndef.stringify(record);
+
+        assert.equal("Text Record\nhello, world\n", string);
+    })
+
+    it ('should reject invalid records', function() {
+
+        var record = ndef.record(17, [], [], []);
+        var string = ndef.stringify(record);
+
+        assert.equal("Can't process TNF 17\n", string);
+    })
+
+    it ('only handles some well known types', function() {
+
+        var record = ndef.record(ndef.TNF_WELL_KNOWN, ndef.RTD_HANDOVER_REQUEST, 
+            [0x48, 0x72], [0x12,0x91,0x02,0x02,0x63,0x72,0xAA,0x0D,0x51,0x02,0x04,0x61,0x63,0x01,0x01,0x62,0x00]);
+        var string = ndef.stringify(record);
+
+        assert.equal(0, string.indexOf("Hr Record"));
+    })
+
+    it ('should do something sensible with message bytes', function() {
+        var message = [
+            ndef.textRecord("hello, world")
+        ];
+
+        var bytes = ndef.encodeMessage(message);
+
+        var string = ndef.stringify(bytes);
+
+        assert.equal("Text Record\nhello, world\n", string);
+    })
+
+    it ('should handle empty array', function() {
+        var string = ndef.stringify([]);
+        assert.equal("", string);
+    })
+
+})

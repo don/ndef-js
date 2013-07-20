@@ -1,5 +1,5 @@
 var assert = require("assert");
-var ndef = require("../lib/ndef");
+var ndef = require("../index");
 
 var textMessageHelloWorld = [ 209, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 111,
             44, 32, 119, 111, 114, 108, 100 ];

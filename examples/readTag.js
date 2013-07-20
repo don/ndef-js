@@ -3,7 +3,7 @@
 // print the contents
 
 var spawn = require('child_process').spawn,
-    ndef = require('../lib/ndef'),
+    ndef = require('../index'),
     fs = require('fs'),
     mifareClassic = require('../lib/mifare-classic'),
     fileName = 'foo.mfd';

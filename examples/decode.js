@@ -4,7 +4,7 @@
 
 var fs = require('fs'),
     mifareClassic = require('../lib/mifare-classic'),
-    ndef = require('../lib/ndef'),
+    ndef = require('../index'),
     fileName = process.argv[2],
     buffer;
 

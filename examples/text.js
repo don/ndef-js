@@ -1,6 +1,6 @@
 // create a NDEF message with plain text
 
-var ndef = require('../lib/ndef'),
+var ndef = require('../index'),
     message,
     byteArray,
     buffer;

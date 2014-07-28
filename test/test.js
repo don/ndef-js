@@ -5,11 +5,11 @@ var textMessageHelloWorld = [ 209, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 1
             44, 32, 119, 111, 114, 108, 100 ];
 var urlMessageNodeJSorg = [ 209, 1, 11, 85, 3, 110, 111, 100, 101, 106, 115, 46,
             111, 114, 103 ];
-var absoluteUriWindowsLaunchRecord = [ 211, 21, 57, 119, 105, 110, 100, 111, 119, 115, 
-     46, 99, 111, 109, 47, 76, 97, 117, 110, 99, 104, 65, 112, 112, 0, 1, 12, 87,
-     105, 110, 100, 111, 119, 115, 80, 104, 111, 110, 101, 38, 123, 102, 53, 56, 
-     55, 52, 50, 53, 50, 45, 49, 102, 48, 52, 45, 52, 99, 51, 102, 45, 97, 51, 51,
-     53, 45, 52, 102, 97, 51, 98, 55, 98, 56, 53, 51, 50, 57, 125, 0, 1, 32];
+var absoluteUriWindowsLaunchRecord = [ 211, 21, 57, 119, 105, 110, 100, 111, 119, 115,
+            46, 99, 111, 109, 47, 76, 97, 117, 110, 99, 104, 65, 112, 112, 0, 1, 12, 87,
+            105, 110, 100, 111, 119, 115, 80, 104, 111, 110, 101, 38, 123, 102, 53, 56,
+            55, 52, 50, 53, 50, 45, 49, 102, 48, 52, 45, 52, 99, 51, 102, 45, 97, 51, 51,
+            53, 45, 52, 102, 97, 51, 98, 55, 98, 56, 53, 51, 50, 57, 125, 0, 1, 32];
 var mimeMediaMessage = [ 210, 9, 27, 116, 101, 120, 116, 47, 106, 115, 111, 110,
             123, 34, 109, 101, 115, 115, 97, 103, 101, 34, 58, 32, 34, 104, 101, 108,
             108, 111, 44, 32, 119, 111, 114, 108, 100, 34, 125 ];
@@ -19,7 +19,10 @@ var multipleRecordMessage = [ 145, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 1
             111, 110, 123, 34, 109, 101, 115, 115, 97, 103, 101, 34, 58, 32, 34, 104,
             101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 34, 125 ];
 var emptyMessage = [ 208, 0, 0 ];
-var threeEmptyMessage =[ 144, 0, 0, 16, 0, 0, 80, 0, 0 ];
+var threeEmptyMessage = [ 144, 0, 0, 16, 0, 0, 80, 0, 0 ];
+var externalMessage = [
+            0xD4, 0x0F, 0x03, 0x63, 0x6F, 0x6D, 0x2E, 0x65, 0x78, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x3A, 0x66,
+            0x6F, 0x6F, 0x62, 0x61, 0x72 ];
 
 describe('Encode Message', function() {
     describe('textRecord', function() {
@@ -56,14 +59,14 @@ describe('Encode Message', function() {
             // [10] 7B 66 35 38 37 34 32 35 32 2D 31 66 30 34 2D 34 |{f5874252-1f04-4|
             // [20] 63 33 66 2D 61 33 33 35 2D 34 66 61 33 62 37 62 |c3f-a335-4fa3b7b|
             // [30] 38 35 33 32 39 7D 00 01 20                      |85329}.. |
-            
-            var payload = [ 
+
+            var payload = [
               0x00, 0x01, 0x0C, 0x57, 0x69, 0x6E, 0x64, 0x6F, 0x77, 0x73, 0x50, 0x68, 0x6F, 0x6E, 0x65, 0x26,
               0x7B, 0x66, 0x35, 0x38, 0x37, 0x34, 0x32, 0x35, 0x32, 0x2D, 0x31, 0x66, 0x30, 0x34, 0x2D, 0x34,
               0x63, 0x33, 0x66, 0x2D, 0x61, 0x33, 0x33, 0x35, 0x2D, 0x34, 0x66, 0x61, 0x33, 0x62, 0x37, 0x62,
               0x38, 0x35, 0x33, 0x32, 0x39, 0x7D, 0x00, 0x01, 0x20
             ]
-                        
+
             var message = [
                 ndef.absoluteUriRecord("windows.com/LaunchApp", payload)
             ];
@@ -140,7 +143,7 @@ describe('Decode Message', function() {
             var decodedRecord = decodedMessage[0];
 
             assert.equal(record.tnf, decodedRecord.tnf);
-            assert.deepEqual(record.type, decodedRecord.type);
+            assert.equal(record.type, decodedRecord.type);
             assert.deepEqual(record.payload, decodedRecord.payload);
         })
     })
@@ -163,11 +166,11 @@ describe('decodeMessage', function() {
         assert.equal(3, decodedMessage.length);
 
         assert.equal(ndef.TNF_WELL_KNOWN, decodedMessage[0].tnf);
-        assert.deepEqual(ndef.RTD_TEXT, decodedMessage[0].type);
+        assert.equal(ndef.RTD_TEXT, decodedMessage[0].type);
         assert.equal("hello, world", new Buffer(decodedMessage[0].payload).slice(3));
 
         assert.equal(ndef.TNF_WELL_KNOWN, decodedMessage[1].tnf);
-        assert.deepEqual(ndef.RTD_URI, decodedMessage[1].type);
+        assert.equal(ndef.RTD_URI, decodedMessage[1].type);
         assert.equal("nodejs.org", new Buffer(decodedMessage[1].payload).slice(1)); // char 0 is 0x3 for http://
 
         assert.equal(ndef.TNF_MIME_MEDIA, decodedMessage[2].tnf);
@@ -254,5 +257,44 @@ describe('stringify', function() {
         var string = ndef.stringify([]);
         assert.equal("", string);
     })
+
+})
+
+describe('Record Type', function() {
+
+    it ('can be a String', function() {
+        var message = [
+            ndef.record(ndef.TNF_EXTERNAL_TYPE, "com.example:foo", [], "bar")
+        ]
+
+        var encoded = ndef.encodeMessage(message);
+
+        assert.deepEqual(externalMessage, encoded);
+    })
+
+    it ('can be an Array', function() {
+        var message = [
+            ndef.record(ndef.TNF_EXTERNAL_TYPE, "com.example:foo", [], "bar")
+        ]
+
+        var encoded = ndef.encodeMessage(message);
+
+        assert.deepEqual(externalMessage, encoded);
+    })
+
+    it ('should allow UTF-8', function() {
+
+        var message = [
+            ndef.record(ndef.TNF_ABSOLUTE_URI, "✓", [], "type is utf-8")
+        ];
+
+        var encoded = ndef.encodeMessage(message);
+        var expectedBytes = [ 211, 3, 13, 226, 156, 147, 116, 121, 112, 101, 32, 105, 115, 32, 117, 116, 102, 45, 56 ];
+        assert.deepEqual(expectedBytes, encoded);
+
+        var decoded = ndef.decodeMessage(encoded);
+        assert.equal(decoded[0].type, "✓");
+
+    });
 
 })

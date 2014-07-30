@@ -147,6 +147,23 @@ describe('Decode Message', function() {
             assert.deepEqual(record.payload, decodedRecord.payload);
         })
     })
+
+    describe('uriRecord', function() {
+
+        it('should match known record', function() {
+
+            var decodedMessage = ndef.decodeMessage(urlMessageNodeJSorg);
+            assert.equal(1, decodedMessage.length);
+
+            var record = ndef.uriRecord("http://nodejs.org");
+            var decodedRecord = decodedMessage[0];
+
+            assert.equal(record.tnf, decodedRecord.tnf);
+            assert.equal(record.type, decodedRecord.type);
+            assert.deepEqual(record.payload, decodedRecord.payload);
+        })
+    })
+
 })
 
 describe('decodeMessage', function() {

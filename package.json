@@ -1,6 +1,6 @@
 {
   "name": "ndef",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Library to create and parse NDEF messages.",
   "main": "index.js",
   "directories": {

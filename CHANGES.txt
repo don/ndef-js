@@ -1,0 +1,25 @@
+= 0.1.0 = 
+
+Record Type is now a String instead of an int[]. 
+
+This will allow for better easier comparison when processing records.
+
+    if (record.type === ndef.RTD_TEXT) {  /* blargh */ }
+
+Before this change, each element of the array needed to be compared.
+
+== Experimental feature ==
+
+Added a property to the NDEF record that contains the decoded payload for Well Known types Text (T) and URI (U). For all other TNFs and types, it is the application's responsibility to decode the payload.
+
+    { 
+      tnf: 1,
+      type: 'T',
+      id: [],
+      payload: [ 2, 101, 110, 104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100 ],
+      value: 'hello, world' 
+    }
+
+= 0.0.5 = 
+
+Fixes issue #1 ndef.absoluteUriRecord needs a payload

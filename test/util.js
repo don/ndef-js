@@ -5,7 +5,7 @@ describe('UTF-8', function() {
 
     it('should encode UTF-8', function() {
 
-        var bytes=[ 0x54, 0x65, 0x73, 0x74, 0x73, 0xd7, 0x90,0xc2, 0xa2];
+        var bytes=[ 0x54, 0x65, 0x73, 0x74, 0x73, 0xd7, 0x90, 0xc2, 0xa2];
 
         var encoded = util.stringToBytes("Testsא¢");
         assert.deepEqual(encoded, bytes);
@@ -39,14 +39,14 @@ describe('UTF-8', function() {
     it('should round trip encode and decode UTF-8', function() {
 
         // http://www.columbia.edu/~kermit/utf8.html
-        var chinese = "我能吞下玻璃而不伤身体。"
+        var chinese = "我能吞下玻璃而不伤身体。";
         assert.equal(util.bytesToString(util.stringToBytes(chinese)), chinese);
 
-        var korean = "나는 유리를 먹을 수 있어요. 그래도 아프지 않아요"
+        var korean = "나는 유리를 먹을 수 있어요. 그래도 아프지 않아요";
         assert.equal(util.bytesToString(util.stringToBytes(korean)), korean);
 
-        var url = "http://example.com/with-utf8-✓"
+        var url = "http://example.com/with-utf8-✓";
         assert.equal(util.bytesToString(util.stringToBytes(url)), url);
 
     });
-})
+});

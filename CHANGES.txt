@@ -1,4 +1,8 @@
-= 0.1.0 = 
+= 0.1.1 =
+
+Added new methods: ndef.androidApplicationRecord and ndef.tnfToString
+
+= 0.1.0 =
 
 Record Type is now a String instead of an int[]. 
 

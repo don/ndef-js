@@ -296,6 +296,36 @@ describe('stringify', function() {
 
 })
 
+describe('TNF to String', function() {
+
+    it('should stringify known TNF', function() {
+        assert.equal(ndef.tnfToString(ndef.TNF_EMPTY), "Empty");
+        assert.equal(ndef.tnfToString(ndef.TNF_WELL_KNOWN), "Well Known");
+        assert.equal(ndef.tnfToString(ndef.TNF_MIME_MEDIA), "Mime Media");
+        assert.equal(ndef.tnfToString(ndef.TNF_ABSOLUTE_URI), "Absolute URI");
+        assert.equal(ndef.tnfToString(ndef.TNF_EXTERNAL_TYPE), "External");
+        assert.equal(ndef.tnfToString(ndef.TNF_UNKNOWN), "Unknown");
+        assert.equal(ndef.tnfToString(ndef.TNF_UNCHANGED), "Unchanged");
+        assert.equal(ndef.tnfToString(ndef.TNF_RESERVED), "Reserved");
+
+        assert.equal(ndef.tnfToString(0), "Empty");
+        assert.equal(ndef.tnfToString(1), "Well Known");
+        assert.equal(ndef.tnfToString(2), "Mime Media");
+        assert.equal(ndef.tnfToString(3), "Absolute URI");
+        assert.equal(ndef.tnfToString(4), "External");
+        assert.equal(ndef.tnfToString(5), "Unknown");
+        assert.equal(ndef.tnfToString(6), "Unchanged");
+        assert.equal(ndef.tnfToString(7), "Reserved");
+    });
+
+    it('should handle invalid TNF', function() {
+        assert.equal(ndef.tnfToString(17), 17);
+        assert.equal(ndef.tnfToString("17"), "17");
+        assert.equal(ndef.tnfToString("foo"), "foo");
+    });
+
+});
+
 describe('Record Type', function() {
 
     it ('can be a String', function() {

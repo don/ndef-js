@@ -19,6 +19,10 @@ var multipleRecordMessage = [ 145, 1, 15, 84, 2, 101, 110, 104, 101, 108, 108, 1
             111, 110, 123, 34, 109, 101, 115, 115, 97, 103, 101, 34, 58, 32, 34, 104,
             101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 34, 125 ];
 var emptyMessage = [ 208, 0, 0 ];
+var androidApplicationRecordMessage = [
+    0xD4, 0x0F, 0x0E, 0x61, 0x6E, 0x64, 0x72, 0x6F, 0x69, 0x64, 0x2E, 0x63, 0x6F, 0x6D, 0x3A, 0x70,
+    0x6B, 0x67, 0x63, 0x6F, 0x6D, 0x2E, 0x6C, 0x61, 0x75, 0x6E, 0x64, 0x72, 0x79, 0x6E, 0x66, 0x63
+];
 var threeEmptyMessage = [ 144, 0, 0, 16, 0, 0, 80, 0, 0 ];
 var externalMessage = [
             0xD4, 0x0F, 0x03, 0x63, 0x6F, 0x6D, 0x2E, 0x65, 0x78, 0x61, 0x6D, 0x70, 0x6C, 0x65, 0x3A, 0x66,
@@ -100,6 +104,21 @@ describe('Encode Message', function() {
             assert.deepEqual(emptyMessage, encoded);
         })
     })
+
+    describe('androidApplicationRecord', function() {
+        it('should match known message', function() {
+
+            var packageName = "com.laundrynfc"
+            var message = [
+                ndef.androidApplicationRecord(packageName)
+            ];
+
+            var encoded = ndef.encodeMessage(message);
+
+            assert.deepEqual(androidApplicationRecordMessage, encoded);
+        })
+    })
+
 
     describe('multipleEmptyRecords', function() {
         it('should match known message', function() {

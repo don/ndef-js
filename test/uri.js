@@ -1,5 +1,6 @@
 var assert = require("assert"),
-    uriHelper = require("../lib/ndef-uri");
+    uriHelper = require("../lib/ndef-uri"),
+    util = require("../lib/ndef-util");
 
 describe('NDEF URI Encoder', function() {
 
@@ -52,7 +53,7 @@ describe('NDEF URI Encoder', function() {
 })
 
 function getBytes(prefix, string) {
-    var bytes = Buffer(string).toJSON();
+    var bytes = util.stringToBytes(string);
     bytes.unshift(prefix);
     return bytes;
 }

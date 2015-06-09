@@ -1,6 +1,6 @@
 {
   "name": "ndef",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Library to create and parse NDEF messages.",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
       "test": "mocha test/*.js"
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/don/ndef-js"
@@ -18,12 +18,12 @@
     "NFC"
   ],
   "author": "Don Coleman <don.coleman@gmail.com>",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/don/ndef-js/issues"
   },
-  "dependencies": {      
+  "dependencies": {
   },
   "devDependencies": {
       "mocha": ""

@@ -1,3 +1,6 @@
+= 0.2.0 =
+ndef.decodeMessage accepts a Buffer or Array of bytes
+
 = 0.1.3 =
 NDEF Text language code is bytes 0 through 5
 

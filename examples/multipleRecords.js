@@ -14,6 +14,6 @@ message = [
 console.log(message);
 
 byteArray = ndef.encodeMessage(message);
-buffer = new Buffer(byteArray);
+buffer = Buffer.from(byteArray);
 
 console.log(buffer.toString('base64'));

@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-      "test": "mocha test/*.js"
+    "test": "mocha test/*.js"
   },
   "repository": {
     "type": "git",
@@ -23,12 +23,11 @@
   "bugs": {
     "url": "https://github.com/don/ndef-js/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-      "mocha": ""
+    "mocha": ""
   },
   "engines": {
-     "node": ">=0.8"
-   }
+    "node": ">=0.8"
+  }
 }

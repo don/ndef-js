@@ -17,7 +17,7 @@ buffer = fs.readFileSync(fileName);
 ndefBuffer = mifareClassic.getNdefData(buffer);
 console.log(ndefBuffer);
 
-message = ndef.decodeMessage(ndefBuffer.toJSON());
+message = ndef.decodeMessage(ndefBuffer);
 console.log(message);
 
 // Print out the payload for each record
